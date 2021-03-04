@@ -27,8 +27,13 @@ namespace Assignment5
 
         public override string ToString()
         {
-            // TODO: display the output like this Axe
-            return base.ToString();
+            // TODO: display the output like this Axe           
+            string message = @$"
+Item Description 
+Name of the Item: {Name}
+Amount of the Item: {Amount}
+Type of the weapon: {Group}";
+            return message;
         }
     }
 }

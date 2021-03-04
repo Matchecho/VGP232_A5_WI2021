@@ -28,13 +28,13 @@ namespace Assignment5
 
         // The available slots to add item, once it's 0, you cannot add any more items.
         private int availableSlots;
-
         // The max available slots which is set only in the constructor.
         private int maxSlots;
+
         public Inventory(int slots)
-        {
-            availableSlots = maxSlots;
+        {       
             maxSlots = slots;
+            availableSlots = maxSlots;
         }
 
         /// <summary>
@@ -54,7 +54,22 @@ namespace Assignment5
         /// <returns>True if you find the item, and false if it does not exist.</returns>
         bool TakeItem(string name, out Item found)
         {
-            throw new NotImplementedException();
+            if (items.Count == 0)
+            {
+                found = null;
+                return false;
+            }
+            foreach (var item in items)
+            {
+                if (item.Key.Name == name)
+                {
+                    found = item.Key;
+                    availableSlots = availableSlots + 1;
+                    return true;
+                }
+            }
+            found = null;
+            return false;
         }
 
         /// <summary>
@@ -67,7 +82,22 @@ namespace Assignment5
             // Add it in the items dictionary and increment it the number if it already exist
             // Reduce the slot once it's been added.
             // returns false if the inventory is full
-            throw new NotImplementedException();
+            if (availableSlots == 0)
+            {
+                return false;
+            }
+            int i = 0;
+            foreach (var It in items)
+            {
+                if (It.Key == item)
+                {
+                    i++;
+                }
+            }            
+            items.Add(item, i);
+            availableSlots = availableSlots - 1;
+            return true;
+            
         }
 
         /// <summary>
@@ -76,8 +106,12 @@ namespace Assignment5
         /// <returns></returns>
         List<Item> ListAllItems()
         {
-            // use a foreach loop to iterate through the key value pairs and duplicate the item base on the quantity.
-            throw new NotImplementedException();
+            List<Item> ListItems = new List<Item>();
+            foreach (var item in items)
+            {
+                ListItems.Add(item.Key);
+            }
+            return ListItems;
         }
     }
 }
